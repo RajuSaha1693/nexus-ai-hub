@@ -1,6 +1,10 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { App } from './app/app';
-
-bootstrapApplication(App, appConfig)
-  .catch((err) => console.error(err));
+import 'prismjs';
+import 'prismjs/components/prism-javascript.min.js';
+import 'prismjs/components/prism-typescript.min.js';
+import 'prismjs/components/prism-scss.min.js';
+import 'prismjs/plugins/toolbar/prism-toolbar.js';
+import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.js';
+bootstrapApplication(App, appConfig).catch((err) => console.error(err));

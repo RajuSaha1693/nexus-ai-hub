@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'tailwindcss';
+/* src/styles.scss */
+@import 'prismjs/themes/prism-tomorrow.css';
+@import 'prismjs/plugins/toolbar/prism-toolbar.css';
+
+.copy-to-clipboard-button {
+  background-color: #1e293b !important; /* slate-800 */
+  color: #f1f5f9 !important; /* slate-100 */
+  border: 1px solid #475569 !important; /* slate-600 */
+  border-radius: 6px !important;
+  padding: 4px 8px !important;
+  font-size: 12px !important;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #334155 !important; /* slate-700 */
+    border-color: #3b82f6 !important; /* blue-500 */
+  }
+}
+
+/* Position the button inside the code block */
+div.code-toolbar {
+  position: relative;
+
+  .copy-to-clipboard-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0;
+  }
+
+  &:hover .copy-to-clipboard-button {
+    opacity: 1;
+  }
+}

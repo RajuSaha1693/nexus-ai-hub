@@ -1,8 +1,62 @@
-<div class="chat-container">
-  <div class="messages">
+<div class="flex flex-col h-screen bg-slate-900 text-slate-100 p-4 font-sans">
+  <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-700">
+    <h1
+      class="text-xl font-bold bg-linear-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent"
+    >
+      Nexus AI Hub
+    </h1>
+
+    <select
+      [(ngModel)]="selectedModel"
+      class="bg-slate-800 border border-slate-600 rounded-md px-3 py-1 text-sm outline-none focus:border-blue-500"
+    >
+      <option value="xiaomi/mimo-v2-flash:free">Mimo-v2</option>
+      <option value="mistralai/devstral-2512:free">Mistral Ai</option>
+      <option value="kwaipilot/kat-coder-pro:free">Kwai Pilot</option>
+    </select>
+  </div>
+
+  <div class="flex-1 overflow-y-auto space-y-4 mb-4 pr-2 custom-scrollbar">
     @for (msg of messages(); track $index) {
-    <p [class]="msg.role">{{ msg.content }}</p>
+      <div
+        [class]="
+          msg.role === 'user' ? 'bg-blue-600 ml-auto' : 'bg-slate-800 border border-slate-700'
+        "
+        class="max-w-[85%] p-4 rounded-2xl shadow-sm text-sm"
+      >
+        <span class="block text-xs opacity-50 mb-1 font-bold">
+          {{ msg.role === 'user' ? 'YOU' : 'NEXUS' }}
+        </span>
+        @if (msg.role === 'user') {
+          {{ msg.content }}
+        } @else {
+          <markdown [data]="msg.content" clipboard> </markdown>
+        }
+      </div>
+    }
+
+    @if (loading()) {
+      <div
+        class="bg-slate-800 border border-slate-700 max-w-25 p-3 rounded-2xl animate-pulse text-center"
+      >
+        ...
+      </div>
     }
   </div>
-  <input [(ngModel)]="userInput" (keyup.enter)="sendMessage()" placeholder="Ask Nexus..." />
+
+  <div class="flex gap-2 bg-slate-800 p-3 rounded-2xl border border-slate-700 shadow-xl">
+    <input
+      [(ngModel)]="userInput"
+      (keyup.enter)="sendMessage()"
+      class="bg-transparent flex-1 outline-none px-2 text-slate-100 placeholder-slate-500"
+      placeholder="Ask Nexus anything..."
+    />
+    <button
+      (click)="sendMessage()"
+      [disabled]="loading()"
+      class="bg-blue-500 hover:bg-blue-600 disabled:opacity-50 px-6 py-2 rounded-xl font-semibold transition-all"
+    >
+      Send
+    </button>
+  </div>
 </div>
