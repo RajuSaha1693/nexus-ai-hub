@@ -1,0 +1,17 @@
+name: NEXUS CI/CD
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the dependencies
+        run: npm install
+
+      - name: Lint and build
+        run: |
+          npm run Lint
+          npm run build
